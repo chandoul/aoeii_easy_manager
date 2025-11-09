@@ -41,7 +41,7 @@ If FileExist('tmp\' ModeName '\Data\' DrsData) {
 }
 ToolTip 'Copy ' Mode '\Drs'
 If DirExist(Mode '\Drs') {
-    
+
     DirCopy(Mode '\Drs', 'tmp\' ModeName '\Drs', 1)
     ToolTip 'Adding game prefix'
     Loop Files, 'tmp\' ModeName '\Drs\*.*' {
@@ -58,7 +58,7 @@ If DirExist(Mode '\Drs') {
     RunWait(A_ComSpec ' /c ' DrsBuild ' /a "tmp\' ModeName '\Data\' DrsData '" "' OutDir '\*.wav"')
     RunWait(A_ComSpec ' /c ' DrsBuild ' /a "tmp\' ModeName '\Data\' DrsData '" "' OutDir '\*.bina"')
     RunWait(A_ComSpec ' /c ' DrsBuild ' /a "tmp\' ModeName '\Data\' DrsData '" "' OutDir '\*.bin"')
-    
+
     ToolTip 'Delete ' ModeName '\Drs'
     DirDelete('tmp\' ModeName '\Drs', 1)
 }

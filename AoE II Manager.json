@@ -6,7 +6,7 @@
 		"https://github.com/Chandoul/aoeii_easy_manager/raw/refs/heads/main/Bin/AoE%20II%20Manager%20AIO.exe"
 	],
 	"AppName": "Age of Empires II Easy Manager",
-	"Author": "Smile@GR",
+	"Author": "Chandoul Muhammad (Smile)",
 	"AutoUpdate": 0,
 	"GRApp": "\\GameRanger\\GameRanger\\GameRanger.exe",
 	"GRSetting": "\\GameRanger\\GameRanger Prefs\\Settings",
@@ -39,10 +39,19 @@
 			"2.0b": "2.0a"
 		},
 		"aocCombine": {
-			"1.0e": ["1.0c"],
-			"1.1": ["1.0c"],
-			"1.5": ["1.0c"],
-			"1.6": ["1.0c", "1.5"]
+			"1.0e": [
+				"1.0c"
+			],
+			"1.1": [
+				"1.0c"
+			],
+			"1.5": [
+				"1.0c"
+			],
+			"1.6": [
+				"1.0c",
+				"1.5"
+			]
 		},
 		"VerCode": {
 			"2.0": 1,
@@ -66,7 +75,8 @@
 			"Fix v3",
 			"Fix v4",
 			"Fix v5",
-			"Fix v6"
+			"Fix v6",
+			"Fix v7"
 		],
 		"FIXCode": {
 			"None": -1,
@@ -75,7 +85,8 @@
 			"Fix v3": 3,
 			"Fix v4": 4,
 			"Fix v5": 5,
-			"Fix v6": 6
+			"Fix v6": 6,
+			"Fix v7": 7
 		},
 		"FIXHandle": {}
 	},
@@ -144,7 +155,9 @@
 		"Elemental TD": {
 			"Package": [
 				"https://raw.githubusercontent.com/Chandoul/aoeii_easy_manager/main/DB/015.7z.001",
-				"DB\\015.7z.001"
+				"DB\\015.7z.001",
+				"https://raw.githubusercontent.com/Chandoul/aoeii_easy_manager/main/DB/015.7z.002",
+				"DB\\015.7z.002"
 			],
 			"Description": "by BinaryPotka\nNew 2023 TD mod with Elemental Towers."
 		},
@@ -173,7 +186,8 @@
 			"WIN8RTM RUNASADMIN",
 			"WIN7RTM RUNASADMIN"
 		],
-		"VPNPath": "\\Hide ALL IP\\HideALLIP.exe",
-		"Layers": "HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Layers"
-	}
+		"VPNPath": "\\Hide ALL IP\\HideALLIP.exe"
+	},
+	"LayersHKLM": "HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Layers",
+	"LayersHKCU": "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Layers"
 }

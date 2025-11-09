@@ -16,6 +16,9 @@ AoEIIAIO.MarginX := AoEIIAIO.MarginY := 10
 AoEIIAIO.SetFont('s10 Bold', 'Calibri')
 
 SetRegView(A_Is64bitOS ? 64 : 32)
+Setting := ReadSetting()
+LayersHKLM := Setting['LayersHKLM']
+LayersHKCU := Setting['LayersHKCU']
 
 AoEIIAIO.SetFont('s16')
 H := AoEIIAIO.AddButton('w392', !FileExist(GameDirectory '\ddraw.dll') ? 'Apply the direct draw fix' : 'Remove the direct draw fix')
@@ -39,29 +42,19 @@ DDFIX(Ctrl, Info) {
 			DirCopy(DDF, GameDirectory, 1)
 			DirCopy(DDF, GameDirectory '\age2_x1', 1)
 
-			IniWrite('false', GameDirectory '\ddraw.ini', 'ddraw',  'fullscreen')
-			IniWrite('false', GameDirectory '\ddraw.ini', 'ddraw',  'border')
-			IniWrite('true'	, GameDirectory '\ddraw.ini', 'ddraw',  'windowed')
-			IniWrite('true'	, GameDirectory '\ddraw.ini', 'ddraw',  'devmode')
-			IniWrite('0'	, GameDirectory '\ddraw.ini', 'ddraw',  'hook')
-
-			IniWrite('false', GameDirectory '\age2_x1\ddraw.ini', 'ddraw',  'fullscreen')
-			IniWrite('false', GameDirectory '\age2_x1\ddraw.ini', 'ddraw',  'border')
-			IniWrite('true'	, GameDirectory '\age2_x1\ddraw.ini', 'ddraw',  'windowed')
-			IniWrite('true'	, GameDirectory '\age2_x1\ddraw.ini', 'ddraw',  'devmode')
-			IniWrite('0'	, GameDirectory '\age2_x1\ddraw.ini', 'ddraw',  'hook')
-
 			If FileExist(GameDirectory '\windmode.dll')
-                FileDelete(GameDirectory '\windmode.dll')
-            If FileExist(GameDirectory '\age2_x1\windmode.dll')
-                FileDelete(GameDirectory '\age2_x1\windmode.dll')
+				FileDelete(GameDirectory '\windmode.dll')
+			If FileExist(GameDirectory '\age2_x1\windmode.dll')
+				FileDelete(GameDirectory '\age2_x1\windmode.dll')
 			If FileExist(GameDirectory '\wndmode.dll')
-                FileDelete(GameDirectory '\wndmode.dll')
-            If FileExist(GameDirectory '\age2_x1\wndmode.dll')
-                FileDelete(GameDirectory '\age2_x1\wndmode.dll')
+				FileDelete(GameDirectory '\wndmode.dll')
+			If FileExist(GameDirectory '\age2_x1\wndmode.dll')
+				FileDelete(GameDirectory '\age2_x1\wndmode.dll')
 			Ctrl.Text := 'Remove the direct draw fix'
 			EHA.Enabled := True
 			EHC.Enabled := True
+			CompatClear(GameDirectory '\empires2.exe')
+			CompatClear(GameDirectory '\age2_x1\age2_x1.exe')
 		Case 'Remove':
 			Loop Files, DDF "\*.*", 'R' {
 				FilePath := StrReplace(A_LoopFileFullPath, A_ScriptDir '\')
@@ -76,7 +69,7 @@ DDFIX(Ctrl, Info) {
 			EHC.Enabled := False
 	}
 	If A_Args.Length
-		SetTimer(Quit, -1000)
+		SetTimer((*) => ExitApp(), -1000)
 	Msgbox('Complete!', 'DIRECT DRAW', 0x40)
 }
 
@@ -108,7 +101,14 @@ If A_Args.Length {
 	}
 }
 
+CompatClear(ValueName) {
+	If RegRead(LayersHKCU, ValueName, '')
+		RegDelete(LayersHKCU, ValueName)
+	If RegRead(LayersHKLM, ValueName, '')
+		RegDelete(LayersHKLM, ValueName)
+}
 
-Quit() {
-	ExitApp()
+CompatSet(ValueName, Value) {
+	RegWrite(Value, 'REG_SZ', LayersHKCU, ValueName)
+	RegWrite(Value, 'REG_SZ', LayersHKLM, ValueName)
 }

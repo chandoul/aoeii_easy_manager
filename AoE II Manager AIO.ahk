@@ -5,7 +5,7 @@
 
 If !A_IsAdmin {
     MsgBox('Script must run as administrator!', 'Warn', 0x30)
-    ExitApp
+    ExitApp()
 }
 
 #Include <ImageButton>
@@ -15,6 +15,7 @@ If !A_IsAdmin {
 #Include <DownloadPackage>
 #Include <ExtractPackage>
 #Include <WatchFileSize>
+#Include <HashFile>
 
 Features := Map()
 Features['Main'] := []
@@ -34,7 +35,10 @@ WD := AoEIIAIO.AddButton('x0 y0', '...')
 AoEIIAIO.SetFont('Bold s18')
 T := AoEIIAIO.AddText('xm cGreen Center BackgroundTrans y40', AppName ' v' Version)
 P := AoEIIAIO.AddPicture('xm+90 y80', 'DB\Base\game.png')
-AoEIIAIO.SetFont('Bold s12')
+
+AoEIIAIO.SetFont('Bold s8 ')
+A := AoEIIAIO.AddText('xm cGray Center BackgroundTrans y260', 'A homemade tool humbly made by Smile, enjoy!')
+AoEIIAIO.SetFont('Bold s12 Bold')
 
 R := AoEIIAIO.AddButton('xm ym+30 w100', 'Reload')
 R.SetFont('Bold s10')
@@ -80,7 +84,7 @@ H.OnEvent('Click', LaunchSubApp)
 
 LaunchSubApp(Ctrl, Info) {
     Try {
-        Run(LnchMap[Ctrl.Text],,, &PID)
+        Run(LnchMap[Ctrl.Text], , , &PID)
         LnchPID[LnchMap[Ctrl.Text]] := PID
     }
     Catch Error As Err
@@ -163,6 +167,8 @@ U.Move(W - WU - 25, Y)
 U.Redraw()
 T.Move(0, , W)
 T.Redraw()
+A.Move(0, , W)
+A.Redraw()
 P.Move((W - 605) / 2)
 P.Redraw()
 WD.Move(, , W - 16)
@@ -194,6 +200,7 @@ If !ValidGameDirectory(GameDirectory) {
 WD.Text := 'Current selection: "' GameDirectory '"'
 CreateImageButton(WD, 0, IBGray*)
 
+/*
 #HotIf WinActive(AoEIIAIO)
 ; For testing purposes only!
 ^!u:: {
@@ -215,22 +222,28 @@ CreateImageButton(WD, 0, IBGray*)
     }
 }
 #HotIf
+*/
 
 ; Gameux Win7/Vista auto fix
-Switch SubStr(A_OSVersion, 1, 3) {
-    Case '6.0', '6.1':
-        GE := A_WinDir '\System32\gameux.dll'
-        If FileExist(GE) && 'Yes' = MsgBox('If your games are being delayed when you start them apply this hotfix otherwise skip it!', 'Gameux', 0x40 + 0x4) {
-            RunWait(A_ComSpec ' /c takeown /f ' A_WinDir '\System32\gameux.dll && cacls ' A_WinDir '\System32\gameux.dll /E /P %username%:F && ren ' A_WinDir '\System32\gameux.dll gameux_renamed.dll', , 'Hide')
-        }
+GEs := [
+    A_WinDir '\System32\gameux.dll',
+    A_WinDir '\SysWOW64\gameux.dll'
+]
+For GE in GEs {
+    Switch SubStr(A_OSVersion, 1, 3) {
+        Case '6.0', '6.1':
+            If FileExist(GE) && 'Yes' = MsgBox('If your games are being delayed when you start them apply this hotfix otherwise skip it!`n`nTarget File: ' GE, 'Gameux', 0x40 + 0x4) {
+                RunWait(A_ComSpec ' /c takeown /f ' A_WinDir '\System32\gameux.dll && cacls ' A_WinDir '\System32\gameux.dll /E /P %username%:F && ren ' A_WinDir '\System32\gameux.dll gameux_renamed.dll', , 'Hide')
+            }
+    }
 }
 
-; Watch rooms version and change when needed when is possible
-SetTimer(WatchGameVersion, 1000)
-
-WatchGameVersion() {
+SetTimer(WatchIt, 1000)
+; Continously watch for some important setting
+WatchIt() {
     ; Version watch
-    Static Version := '' , LastApplied := ''
+    Static Version := '', LastApplied := ''
+    Static HS := HashFile('DB\Base\ubh')
     If Hwnd := WinActive('Room: Age of Empires II') {
         If !ControlGetEnabled('RichEdit20W2', 'ahk_id ' Hwnd) {
             Return
@@ -242,8 +255,18 @@ WatchGameVersion() {
             }
         }
         If LastApplied != Version {
-            RunWait('Version.ahk ' Version)
+            Result := MsgBox('[ ' Version ' ] was detected in the game room description!`nDo you Want to apply it?', 'Version', 0x40 + 0x4 ' T5')
+            If 'Yes' = Result {
+                RunWait('Version.ahk ' Version)
+            }
             LastApplied := Version
         }
+    }
+    ; Watch for a twisted game
+    If FileExist(GameDirectory '\dsound.dll') && HS = HashFile(GameDirectory '\dsound.dll') {
+        FileDelete(GameDirectory '\dsound.dll')
+    }
+    If FileExist(GameDirectory '\age2_x1\dsound.dll') && HS = HashFile(GameDirectory '\age2_x1\dsound.dll') {
+        FileDelete(GameDirectory '\age2_x1\dsound.dll')
     }
 }

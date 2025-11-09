@@ -20,12 +20,15 @@ AoEIIAIO.OnEvent('Close', (*) => ExitApp())
 AoEIIAIO.MarginX := AoEIIAIO.MarginY := 10
 AoEIIAIO.SetFont('s10', 'Segoe UI')
 
-GameFix := ReadSetting(, 'GameFix')
-RegKey := ReadSetting(, 'GameFixREG')
-RegName := ReadSetting(, 'GameFixREGName')
-FixPackage := ReadSetting(, 'FixPackage')
+Setting := ReadSetting()
+GameFix := Setting['GameFix']
+RegKey := Setting['GameFixREG']
+RegName := Setting['GameFixREGName']
 
 Features := Map(), Features['Fixs'] := []
+SetRegView(A_Is64bitOS ? 64 : 32)
+LayersHKLM := Setting['LayersHKLM']
+LayersHKCU := Setting['LayersHKCU']
 
 H := AoEIIAIO.AddText('w350 Center h25', 'Select one of the fixes below')
 H.SetFont('Bold')
@@ -79,7 +82,7 @@ WndOpt.OnEvent('Click', OnOffWndOpt)
 OnOffWndOpt(Ctrl, Info) {
     AdvanceOptions.Enabled := Ctrl.Value ? 1 : 0
 }
-AdvanceOptions := AoEIIAIO.AddListView('xp-4 yp+20 r10 -Hdr Checked -E0x200 wp', [' '])
+AdvanceOptions := AoEIIAIO.AddListView('xp+10 yp+20 r10 -Hdr Checked -E0x200 wp-14', [' '])
 For Option in StrSplit(IniRead('DB\Fix\wndmode.ini', 'WINDOWMODE', , ''), '`n') {
     OptionValue := StrSplit(Option, '=')
     AdvanceOptions.Add(OptionValue[2] ? 'Check' : '', OptionValue[1])
@@ -160,6 +163,8 @@ ApplyFix(Ctrl, Info) {
             AnalyzeFix()
             EnableControls(Features['Fixs'])
             SoundPlay('DB\Base\30 Wololo.mp3')
+            CompatClear(GameDirectory '\empires2.exe')
+            CompatClear(GameDirectory '\age2_x1\age2_x1.exe')
             Return
         }
         If VersionExist('aoc', '1.0e', GameDirectory)
@@ -178,6 +183,8 @@ ApplyFix(Ctrl, Info) {
         If FileExist(GameDirectory '\ddraw.dll') {
             FileDelete(GameDirectory '\ddraw.dll')
         }
+        CompatSet(GameDirectory '\empires2.exe', 'WINXPSP3')
+        CompatSet(GameDirectory '\age2_x1\age2_x1.exe', 'WINXPSP3')
         AnalyzeFix()
         SoundPlay('DB\Base\30 Wololo.mp3')
     } Catch {
@@ -229,4 +236,16 @@ CleansUp() {
             }
         }
     }
+}
+
+CompatClear(ValueName) {
+    If RegRead(LayersHKCU, ValueName, '')
+        RegDelete(LayersHKCU, ValueName)
+    If RegRead(LayersHKLM, ValueName, '')
+        RegDelete(LayersHKLM, ValueName)
+}
+
+CompatSet(ValueName, Value) {
+    RegWrite(Value, 'REG_SZ', LayersHKCU, ValueName)
+    RegWrite(Value, 'REG_SZ', LayersHKLM, ValueName)
 }
