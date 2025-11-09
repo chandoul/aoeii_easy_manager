@@ -17,7 +17,7 @@ OutputBaseFilename={#APP_NAME} [ Update - {#APP_VERSION} ]
 [Files]
 Source: "AoE II Manager.json"; DestDir: "{app}";
 Source: "DM.ahk"; DestDir: "{app}";
-Source: "db\Base\cnc-ddraw.2\ddraw.ini"; DestDir: "{app}";
+Source: "db\Base\cnc-ddraw.2\ddraw.ini"; DestDir: "{app}\db\Base\cnc-ddraw.2";
 Source: "Bin\aoeii_em-icon.ico"; DestDir: "{app}";
 Source: "lib\DownloadPackage.ahk"; DestDir: "{app}\lib";
 [Icons]
