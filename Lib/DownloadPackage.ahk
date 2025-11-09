@@ -4,13 +4,14 @@ DownloadPackage(Link, Package, Clean := 0, DG := 0, Part := 0, Parts := 0) {
     SplitPath(Package, , &OutDir)
     If OutDir && !DirExist(OutDir)
         DirCreate(OutDir)
+    FileSize := 0
     If !FileExist(Package) {
         DG['LT'].Value := Link
         DG['PB'].Value := 0
         SetTimer(UpdateDG, 1000)
         FileSize := GetFileSize(Link)
         Download(Link, Package)
-        SetTimer(UpdateDG, 0)
+        SetTimer(UpdateDG, 1000)
         UpdateDG() {
             If FileSize {
                 CurrentSize := FileExist(Package) ? FileGetSize(Package) : 0

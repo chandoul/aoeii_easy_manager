@@ -28,18 +28,18 @@ DMList := Map()
 DMListH := Map()
 AoEIIAIOSB := ScrollBar(AoEIIAIO, 200, 400)
 HotIfWinActive("ahk_id " AoEIIAIO.Hwnd)
-Hotkey("WheelUp", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey,"Down") || InStr(A_ThisHotkey,"Dn")) ? 1 : 0, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
-Hotkey("WheelDown", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey,"Down") || InStr(A_ThisHotkey,"Dn")) ? 1 : 0, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
-Hotkey("+WheelUp", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey,"Down") || InStr(A_ThisHotkey,"Dn")) ? 1 : 0, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
-Hotkey("+WheelDown", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey,"Down") || InStr(A_ThisHotkey,"Dn")) ? 1 : 0, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
-Hotkey("Up", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey,"Down") || InStr(A_ThisHotkey,"Dn")) ? 1 : 0, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
-Hotkey("Down", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey,"Down") || InStr(A_ThisHotkey,"Dn")) ? 1 : 0, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
-Hotkey("+Up", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey,"Down") || InStr(A_ThisHotkey,"Dn")) ? 1 : 0, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
-Hotkey("+Down", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey,"Down") || InStr(A_ThisHotkey,"Dn")) ? 1 : 0, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
-Hotkey("PgUp", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey,"Down") || InStr(A_ThisHotkey,"Dn")) ? 3 : 2, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
-Hotkey("PgDn", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey,"Down") || InStr(A_ThisHotkey,"Dn")) ? 3 : 2, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
-Hotkey("+PgUp", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey,"Down") || InStr(A_ThisHotkey,"Dn")) ? 3 : 2, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
-Hotkey("+PgDn", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey,"Down") || InStr(A_ThisHotkey,"Dn")) ? 3 : 2, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
+Hotkey("WheelUp", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey, "Down") || InStr(A_ThisHotkey, "Dn")) ? 1 : 0, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
+Hotkey("WheelDown", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey, "Down") || InStr(A_ThisHotkey, "Dn")) ? 1 : 0, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
+Hotkey("+WheelUp", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey, "Down") || InStr(A_ThisHotkey, "Dn")) ? 1 : 0, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
+Hotkey("+WheelDown", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey, "Down") || InStr(A_ThisHotkey, "Dn")) ? 1 : 0, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
+Hotkey("Up", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey, "Down") || InStr(A_ThisHotkey, "Dn")) ? 1 : 0, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
+Hotkey("Down", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey, "Down") || InStr(A_ThisHotkey, "Dn")) ? 1 : 0, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
+Hotkey("+Up", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey, "Down") || InStr(A_ThisHotkey, "Dn")) ? 1 : 0, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
+Hotkey("+Down", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey, "Down") || InStr(A_ThisHotkey, "Dn")) ? 1 : 0, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
+Hotkey("PgUp", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey, "Down") || InStr(A_ThisHotkey, "Dn")) ? 3 : 2, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
+Hotkey("PgDn", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey, "Down") || InStr(A_ThisHotkey, "Dn")) ? 3 : 2, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
+Hotkey("+PgUp", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey, "Down") || InStr(A_ThisHotkey, "Dn")) ? 3 : 2, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
+Hotkey("+PgDn", (*) => AoEIIAIOSB.ScrollMsg((InStr(A_ThisHotkey, "Down") || InStr(A_ThisHotkey, "Dn")) ? 3 : 2, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
 Hotkey("Home", (*) => AoEIIAIOSB.ScrollMsg(6, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
 Hotkey("End", (*) => AoEIIAIOSB.ScrollMsg(7, 0, GetKeyState("Shift") ? 0x114 : 0x115, AoEIIAIO.Hwnd))
 HotIfWinActive
@@ -54,7 +54,7 @@ For ModName, DataMod in DMPackage {
     DMList[ModName]['Title'] := ModName
     DMListH[Index]['Title'] := M
     M.SetFont('Bold s14')
-    CreateImageButton(M, 0, [[0xFFFFFF], [0xE6E6E6], [0xCCCCCC], [0xFFFFFF,, 0xCCCCCC]]*)
+    CreateImageButton(M, 0, [[0xFFFFFF], [0xE6E6E6], [0xCCCCCC], [0xFFFFFF, , 0xCCCCCC]]*)
     Features['DM'].Push(M)
     M := AoEIIAIO.AddButton('xm w460', '...')
     DMList[ModName]['Install'] := 'Install ' ModName
@@ -109,7 +109,7 @@ UpdateModList() {
 ResetDMItem(Index, Value := '...') {
     Index := Format('{:03}', Index)
     DMListH[Index]['Title'].Text := Value
-    CreateImageButton(DMListH[Index]['Title'], 0, [[0xFFFFFF], [0xE6E6E6], [0xCCCCCC], [0xFFFFFF,, 0xCCCCCC]]*)
+    CreateImageButton(DMListH[Index]['Title'], 0, [[0xFFFFFF], [0xE6E6E6], [0xCCCCCC], [0xFFFFFF, , 0xCCCCCC]]*)
     DMListH[Index]['Img'].Value := ''
     DMListH[Index]['Description'].Value := Value
     DMListH[Index]['Install'].Text := Value
@@ -133,7 +133,7 @@ DMItemSet(Index, Mod, Prop) {
     Try DMListH[Index]['Title'].Text := Mod ' ' FileRead(GameDirectory '\Games\' Mod '\version.ini')
     Catch
         DMListH[Index]['Title'].Text := Mod
-    CreateImageButton(DMListH[Index]['Title'], 0, [[0xFFFFFF], [0xE6E6E6], [0xCCCCCC], [0xFFFFFF,, 0xCCCCCC]]*)
+    CreateImageButton(DMListH[Index]['Title'], 0, [[0xFFFFFF], [0xE6E6E6], [0xCCCCCC], [0xFFFFFF, , 0xCCCCCC]]*)
     DMListH[Index]['Img'].Value := Prop['Img']
     DMListH[Index]['Description'].Value := Prop['Description']
     DMListH[Index]['Install'].Text := Prop['Install']
@@ -176,26 +176,26 @@ UpdateDM(Ctrl, Info) {
     If DMName = '...' {
         Return
     }
-    
+
     Update(Ctrl, Progress, Default := 0) {
         If !Default {
             If Apply {
                 Ctrl.Text := 'Installing... ( ' Progress ' % )'
-                CreateImageButton(Ctrl, 0, [[0xFFFFFF,, 0x008000, 4, 0xCCCCCC, 2], [0xE6E6E6], [0xCCCCCC], [0xFFFFFF]]*)
+                CreateImageButton(Ctrl, 0, [[0xFFFFFF, , 0x008000, 4, 0xCCCCCC, 2], [0xE6E6E6], [0xCCCCCC], [0xFFFFFF]]*)
                 Ctrl.Redraw()
             } Else {
                 Ctrl.Text := 'Uninstalling... ( ' Progress ' % )'
-                CreateImageButton(Ctrl, 0, [[0xFFFFFF,, 0xFF0000, 4, 0xCCCCCC, 2], [0xE6E6E6], [0xCCCCCC], [0xFFFFFF]]*)
+                CreateImageButton(Ctrl, 0, [[0xFFFFFF, , 0xFF0000, 4, 0xCCCCCC, 2], [0xE6E6E6], [0xCCCCCC], [0xFFFFFF]]*)
                 Ctrl.Redraw()
             }
         } Else {
             If Apply {
                 Ctrl.Text := 'Install ' DMName
-                CreateImageButton(Ctrl, 0, [[0xFFFFFF,, 0x008000, 4, 0xCCCCCC, 2], [0xE6E6E6], [0xCCCCCC], [0xFFFFFF]]*)
+                CreateImageButton(Ctrl, 0, [[0xFFFFFF, , 0x008000, 4, 0xCCCCCC, 2], [0xE6E6E6], [0xCCCCCC], [0xFFFFFF]]*)
                 Ctrl.Redraw()
             } Else {
                 Ctrl.Text := 'Uninstall ' DMName
-                CreateImageButton(Ctrl, 0, [[0xFFFFFF,, 0xFF0000, 4, 0xCCCCCC, 2], [0xE6E6E6], [0xCCCCCC], [0xFFFFFF]]*)
+                CreateImageButton(Ctrl, 0, [[0xFFFFFF, , 0xFF0000, 4, 0xCCCCCC, 2], [0xE6E6E6], [0xCCCCCC], [0xFFFFFF]]*)
                 Ctrl.Redraw()
             }
         }
@@ -211,15 +211,19 @@ UpdateDM(Ctrl, Info) {
             DMBackup(GameDirectory)
             FirstPart := DMPackage[DMName]['Package'][2]
             If FileExist(FirstPart)
-                ExtractPackage(FirstPart, 'tmp\' DMName,, 1)
-            DMBackup(GameDirectory,, DMName, 2)
+                ExtractPackage(FirstPart, 'tmp\' DMName, , 1)
+            DMBackup(GameDirectory, , DMName, 2)
+            If DirExist(GameDirectory '\Games\' DMName)
+                DirDelete(GameDirectory '\Games\' DMName, 1)
             DirCopy('tmp\' DMName, GameDirectory, 1)
+            RunWait('Version.ahk 1.5')
             MsgBox(DMName ' - should be installed by now!', 'Data mod', 0x40)
         } Else {
             If FileExist(GameDirectory '\Games\age2_x1.xml') {
                 FileDelete(GameDirectory '\Games\age2_x1.xml')
             }
-            DMBackup(GameDirectory,,, 1)
+            DMBackup(GameDirectory, , , 1)
+            RunWait('Version.ahk 1.5')
             MsgBox(DMName ' - should be uninstalled by now!', 'Data mod', 0x40)
         }
     } Catch As Err {
