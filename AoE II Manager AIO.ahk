@@ -48,30 +48,7 @@ R.OnEvent('Click', (*) => Reload())
 U := AoEIIAIO.AddButton('w100', 'Update')
 U.SetFont('Bold s10')
 CreateImageButton(U, 0, IBBlue*)
-U.OnEvent('Click', Check4Updates)
-Check4Updates(Ctrl, Info) {
-    Try {
-        Download(Latest[1], A_Temp '\AoE II Manager.json')
-        LVersion := ReadSetting(A_Temp '\AoE II Manager.json', 'Version', '')
-        If !IsNumber(LVersion) {
-            MsgBox('Unable to check updates!, please make sure you are well connected to the internet before you update.', 'Update check error!', 0x30)
-            Return
-        }
-        If LVersion > Version {
-            If 'Yes' != MsgBox('New update was found! version = ' LVersion '`nDownload the new update?', 'Update', 0x4 + 0x40) {
-                Return
-            }
-            SetTimer(WatchFileSize.Bind(A_Temp '\AoE II Manager AIO.exe', Ctrl), 1000)
-            Download(Latest[2], A_Temp '\AoE II Manager AIO.exe')
-            SetTimer(WatchFileSize, 0)
-            Run(A_Temp '\AoE II Manager AIO.exe')
-            ExitApp()
-        }
-        MsgBox('You got the latest update!', 'Update', 0x40)
-    } Catch {
-        MsgBox('Unable to check updates!, please make sure you are well connected to the internet before you update.', 'Update check error!', 0x30)
-    }
-}
+U.OnEvent('Click', (*) => Run('https://chandoul.github.io'))
 
 LnchMap := Map()
 LnchPID := Map()
@@ -200,30 +177,6 @@ If !ValidGameDirectory(GameDirectory) {
 WD.Text := 'Current selection: "' GameDirectory '"'
 CreateImageButton(WD, 0, IBGray*)
 
-/*
-#HotIf WinActive(AoEIIAIO)
-; For testing purposes only!
-^!u:: {
-    Static Toggle := 0
-    If Toggle := !Toggle {
-        If MsgBox('Are sure to continue?, make sure you know what you doing before you continue', 'UBH Confirm', 0x30 + 0x4) != 'Yes'
-            Return
-        RunWait('Version.ahk 1.0')
-        RunWait('Fixs.ahk None')
-        RunWait('Fixs.ahk "Fix v0"')
-        RunWait('DDF.ahk Apply')
-        FileCopy('DB\Base\ubh', GameDirectory '\dsound.dll', 1)
-        FileCopy('DB\Base\ubh', GameDirectory '\age2_x1\dsound.dll', 1)
-        MsgBox('Good, all is ready now!', 'UBH', 0x40)
-    } Else Try {
-        FileDelete(GameDirectory '\dsound.dll')
-        FileDelete(GameDirectory '\age2_x1\dsound.dll')
-        MsgBox('Good, all cleaned up!', 'UBH', 0x40)
-    }
-}
-#HotIf
-*/
-
 ; Gameux Win7/Vista auto fix
 GEs := [
     A_WinDir '\System32\gameux.dll',
@@ -235,38 +188,5 @@ For GE in GEs {
             If FileExist(GE) && 'Yes' = MsgBox('If your games are being delayed when you start them apply this hotfix otherwise skip it!`n`nTarget File: ' GE, 'Gameux', 0x40 + 0x4) {
                 RunWait(A_ComSpec ' /c takeown /f ' A_WinDir '\System32\gameux.dll && cacls ' A_WinDir '\System32\gameux.dll /E /P %username%:F && ren ' A_WinDir '\System32\gameux.dll gameux_renamed.dll', , 'Hide')
             }
-    }
-}
-
-SetTimer(WatchIt, 1000)
-; Continously watch for some important setting
-WatchIt() {
-    ; Version watch
-    Static Version := '', LastApplied := ''
-    Static HS := HashFile('DB\Base\ubh')
-    If Hwnd := WinActive('Room: Age of Empires II') {
-        If !ControlGetEnabled('RichEdit20W2', 'ahk_id ' Hwnd) {
-            Return
-        }
-        Description := StrSplit(ControlGetText('RichEdit20W1', 'ahk_id ' Hwnd), '`n')
-        For Line in Description {
-            If RegExMatch(Line, 'Description:.*(\d[\.\,]\d[a-e]?)', &OutputVar) {
-                Version := StrReplace(OutputVar.1, ',', '.')
-            }
-        }
-        If LastApplied != Version {
-            Result := MsgBox('[ ' Version ' ] was detected in the game room description!`nDo you Want to apply it?', 'Version', 0x40 + 0x4 ' T5')
-            If 'Yes' = Result {
-                RunWait('Version.ahk ' Version)
-            }
-            LastApplied := Version
-        }
-    }
-    ; Watch for a twisted game
-    If FileExist(GameDirectory '\dsound.dll') && HS = HashFile(GameDirectory '\dsound.dll') {
-        FileDelete(GameDirectory '\dsound.dll')
-    }
-    If FileExist(GameDirectory '\age2_x1\dsound.dll') && HS = HashFile(GameDirectory '\age2_x1\dsound.dll') {
-        FileDelete(GameDirectory '\age2_x1\dsound.dll')
     }
 }
